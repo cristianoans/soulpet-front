@@ -53,7 +53,7 @@ return (
                                     <Button>
                                         <i className="bi bi-trash-fill"></i>
                                     </Button>
-                                    <Button>
+                                    <Button as={Link} to={`/pets/editar/${pet.id}`}>
                                         <i className="bi bi-pencil-fill"></i>
                                     </Button>
                                 </td>
