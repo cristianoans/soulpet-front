@@ -25,7 +25,7 @@ return (
     <div className="pets container">
         <div className="d-flex justify-content-between align-items-center">
             <h1>Pets</h1>
-            <Button>
+            <Button as={Link} to="/pets/novo">
                 <i className="bi bi-plus-lg me-2"></i> Pet
             </Button>
         </div>
