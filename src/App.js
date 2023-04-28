@@ -22,8 +22,7 @@ function App() {
           <Route path="/pets/editar/:id" element={<EditaPet/>} />
           <Route path="/pets" element={<Pets />} />
           <Route path="/pets/novo" element={<NovoPet />} />
-          <Route path="/agendamento" element={<NovoAgendamento />} />
-          <Route path="/agendamento/novo" element={<NovoAgendamento />} />
+          <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
 
 
         </Route>
