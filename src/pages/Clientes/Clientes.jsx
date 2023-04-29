@@ -4,13 +4,17 @@ import { Button, Modal, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 import { toast } from "react-hot-toast";
+import { ModalDetalhesCliente } from "../../components/ModalDetalhesCliente/ModalDetalhesCliente"
 
 export function Clientes() {
 
     const [clientes, setClientes] = useState(null);
+    const [cliente, setCliente] = useState(null);
     const [show, setShow] = useState(false);
     const [idCliente, setIdCliente] = useState(null);
-  
+    // Estado para mostrar ou ocultar o modal de detalhes do cliente
+    const [showDetalhesCliente, setShowDetalhesCliente] = useState(false);
+
     const handleClose = () => {
         setIdCliente(null);
         setShow(false)
@@ -45,6 +49,17 @@ export function Clientes() {
                 toast.error(error.response.data.message, { position: "bottom-right", duration: 2000 });
             });
         handleClose();
+    }
+
+    // Função que exibe o modal de detalhes do livro
+    function openDetalhesCliente(cliente) {
+        setCliente(cliente); // Atualiza o estado do Livro com o livro selecionado
+        setShowDetalhesCliente(true); // Ativa o estado para mostrar o modal de detalhes do livro
+    }
+
+    // Função para fechar o modal de detalhes do livro
+    function closeDetalhesCliente() {
+        setShowDetalhesCliente(false); // Desative o estado para ocultar o modal de detalhes do livro
     }
 
     return (
@@ -82,6 +97,9 @@ export function Clientes() {
                                             <Button as={Link} to={`/clientes/editar/${cliente.id}`}>
                                                 <i className="bi bi-pencil-fill"></i>
                                             </Button>
+                                            <Button onClick={() => openDetalhesCliente(cliente)}>
+                                                <i className="bi bi-info-lg"></i>
+                                            </Button>
                                         </td>
                                     </tr>
                                 )
@@ -103,6 +121,13 @@ export function Clientes() {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <div>
+                <ModalDetalhesCliente
+                    cliente={cliente}
+                    show={showDetalhesCliente}
+                    handleClose={closeDetalhesCliente}
+                />
+            </div>
         </div>
     );
 }
