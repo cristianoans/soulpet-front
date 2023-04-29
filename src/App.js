@@ -8,6 +8,8 @@ import { NovoPet } from "./pages/NovoPet/NovoPet";
 import { Pets } from "./pages/Pets/Pets";
 import { EditaPet } from "./pages/EditarPet/EditarPet";
 import { NovoAgendamento } from "./pages/NovoAgendamento/NovoAgendamento";
+import { NovoServico } from "./pages/NovoServico/NovoServico";
+
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/pets" element={<Pets />} />
           <Route path="/pets/novo" element={<NovoPet />} />
           <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
+          <Route path="/servicos/novo" element={<NovoServico />} />
+
 
 
         </Route>
