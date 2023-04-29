@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 import { ModalDetalhesPets } from "../../components/ModalDetalhesPets/ModalDetalhesPets";
 
