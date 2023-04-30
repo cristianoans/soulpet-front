@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 import { toast } from "react-hot-toast";
 import { ModalDetalhesCliente } from "../../components/ModalDetalhesCliente/ModalDetalhesCliente"
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
 
 export function Clientes() {
 
@@ -62,6 +65,21 @@ export function Clientes() {
         setShowDetalhesCliente(false); // Desative o estado para ocultar o modal de detalhes do livro
     }
 
+    async function gerarRelatorio() {
+        const response = await axios.get("http://localhost:3001/pdf");
+        const html = await response.data;
+        const doc = new jsPDF();
+        const range = document.createRange();
+        const fragment = range.createContextualFragment(html); // html é a sua string de HTML
+        const table = fragment.querySelector('table');
+        doc.autoTable({
+            html: table,
+        });
+        const pdfBlob = new Blob([doc.output('blob')], { type: 'application/pdf' });
+        const pdfUrl =  window.URL.createObjectURL(pdfBlob);
+        console.log(pdfBlob);
+        window.open(pdfUrl)
+    }
     return (
         <div className="clientes container">
             <div className="d-flex justify-content-between align-items-center">
@@ -107,6 +125,7 @@ export function Clientes() {
                         </tbody>
                     </Table>
             }
+            <Button onClick={gerarRelatorio}>gerar relatorio</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmação</Modal.Title>
