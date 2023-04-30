@@ -27,22 +27,23 @@ export function Agendamentos() {
     return (
         <div className="clientes container">
             <div className="d-flex justify-content-between align-items-center">
-                <h1>Clientes</h1>
+                <h1>Agendamentos</h1>
                 <Button as={Link} to="/clientes/novo">
-                    <i className="bi bi-plus-lg me-2"></i> Cliente
+                    <i className="bi bi-plus-lg me-2"></i> Agendamento
                 </Button>
             </div>
             {
                 agendamentos === null ?
                     <Loader />
                     :
-                    <Table striped bordered hover>
+                    <Table bsPrefix="table table-bordered table-striped table-hover align-middle text-center">
                         <thead>
                             <tr>
                                 <th>Serviço</th>
                                 <th>Data agendada</th>
                                 <th>Pet</th>
                                 <th>Status</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +59,7 @@ export function Agendamentos() {
                                         <td>{dataFormatada}</td>
                                         <td>{agendamento.pet.nome}</td>
                                         <td>{agendamento.realizada === false ? "pendente" : "concluído"}</td>
-                                        <td className="d-flex gap-2">
+                                        <td className="d-flex justify-content-center gap-2">
                                             <Button>
                                                 <i className="bi bi-trash-fill"></i>
                                             </Button>
