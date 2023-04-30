@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Loader } from "../../components/Loader/Loader";
 import { ModalDetalhesPets } from "../../components/ModalDetalhesPets/ModalDetalhesPets";
+import { Link } from "react-router-dom";
 
 export function Pets() {
     const [listaPets, setListaPets] = useState(null);
@@ -40,7 +41,7 @@ export function Pets() {
         <div className="pets container">
             <div className="d-flex justify-content-between align-items-center">
                 <h1>Pets</h1>
-                <Button>
+                <Button as={Link} to="/pets/novo">
                     <i className="bi bi-plus-lg me-2"></i> Pet
                 </Button>
             </div>
