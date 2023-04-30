@@ -8,7 +8,7 @@ import { NovoPet } from "./pages/NovoPet/NovoPet";
 import { Pets } from "./pages/Pets/Pets";
 import { EditaPet } from "./pages/EditarPet/EditarPet";
 import { NovoAgendamento } from "./pages/NovoAgendamento/NovoAgendamento";
-
+import { Servicos } from "./pages/Servicos/Servicos";
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
           <Route path="/pets" element={<Pets />} />
           <Route path="/pets/novo" element={<NovoPet />} />
           <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
-
-
+          <Route path="/servicos" element={<Servicos />} />
+          
         </Route>
       </Routes>
     </BrowserRouter>
