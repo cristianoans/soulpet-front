@@ -1,15 +1,42 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Modal, Table } from "react-bootstrap";
 import { Loader } from "../../components/Loader/Loader";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export function Servicos() {
     const [listaServicos, setListaServicos] = useState(null);
+    const [servico, setServico] = useState(null);
+    const [show, setShow] = useState(false);
+    const [idServico, setIdServico] = useState(null); // estado
+
+
+    const handleClose = () => {
+        setIdServico(null);
+        setShow(false)
+    };
+    const handleShow = (id) => {
+        setIdServico(id);
+        setShow(true)
+    };
 
     useEffect(() => {
         initializeTable();
     }, []);
+
+    function onDelete() {
+        axios.delete(`http://localhost:3001/servicos/${idServico}`)
+            .then(response => {
+                toast.success(response.data.message, { position: "bottom-right", duration: 2000 });
+                initializeTable();
+            })
+            .catch(error => {
+                console.log(error);
+                toast.error(error.response.data.message, { position: "bottom-right", duration: 2000 });
+            });
+        handleClose();
+    }
 
     function initializeTable() {
         axios.get("http://localhost:3001/servicos")
@@ -49,7 +76,7 @@ export function Servicos() {
                                         <Button>
                                             <i className="bi bi-pencil-fill"></i>
                                         </Button>
-                                        <Button>
+                                        <Button onClick={() => handleShow(servico.id)}>
                                             <i class="bi bi-trash-fill"></i>
                                         </Button>
                                     </td>
@@ -59,6 +86,20 @@ export function Servicos() {
                     </tbody>
                 </Table>
             )}
+        <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmação</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Tem certeza que deseja excluir esse serviço?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleClose}>
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" onClick={onDelete}>
+                        Excluir
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
