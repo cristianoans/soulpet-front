@@ -39,7 +39,7 @@ export function Produtos() {
     }
 
     function onDelete() {
-        axios.delete(`http://localhost:3001/produto/${idProduto}`)
+        axios.delete(`http://localhost:3001/produtos/${idProduto}`)
             .then(response => {
                 toast.success(response.data.message, { position: "bottom-right", duration: 2000 });
                 initializeTable();
