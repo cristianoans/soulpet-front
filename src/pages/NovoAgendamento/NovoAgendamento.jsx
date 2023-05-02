@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import moment from 'moment-timezone';
 
 export function NovoAgendamento() {
 
@@ -12,10 +13,10 @@ export function NovoAgendamento() {
             servicoId: "",
             dataAgendada: "",
             realizada: "",
-
         }
     });
     const [pets, setPets] = useState([]);
+    const [servicos, setServicos] = useState([]);
     const navigate = useNavigate();
 
     function listaPets() {
@@ -33,7 +34,6 @@ export function NovoAgendamento() {
         listaServicos();
     }, []);
 
-    const [servicos, setServicos] = useState([]);
     function listaServicos() {
         axios.get("http://localhost:3001/servicos")
             .then(response => {
@@ -44,10 +44,10 @@ export function NovoAgendamento() {
             });
     }
 
-   
-    
-
     function onSubmit(data) {
+        // Faz a inclusão do timezone na dataAgendada, para evitar erros ao gravar no banco de dados.
+        const dataAlterada = moment.tz(data.dataAgendada,'America/Sao_Paulo');
+        data.dataAgendada = dataAlterada;
         axios.post("http://localhost:3001/agendamentos", data)
             .then(response => {
                 toast.success("Agendamento adicionado.", { position: "bottom-right", duration: 2000 });
@@ -100,5 +100,4 @@ export function NovoAgendamento() {
             </form>
         </div>
     );
-
 };
