@@ -33,7 +33,7 @@ export function EditaProduto() {
         axios.get(`http://localhost:3001/produtos/${id}`)
             .then(response => {
                 const { nome, preco, descricao, desconto, categoria } = response.data;
-                var { dataDesconto } = response.data;
+                let { dataDesconto } = response.data;
                 const date = new Date(dataDesconto)
                 const dataFormatada = format(date, 'yyyy-MM-dd');
                 dataDesconto = dataFormatada
