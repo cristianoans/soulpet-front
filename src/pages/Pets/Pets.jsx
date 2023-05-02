@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 export function Pets() {
     const [listaPets, setListaPets] = useState(null);
     const [Pet, setPet] = useState(null);
+    const [page ,setPage] = useState(1);
+    const [nextPage ,setNextPage] = useState();
+    const [prevPage ,setPrevPage] = useState();
 
     // Estado para mostrar ou ocultar o modal de detalhes do pet
     const [showDetalhesPet, setShowDetalhesPet] = useState(false);
@@ -24,17 +27,33 @@ export function Pets() {
     }
 
     useEffect(() => {
-        initializeTable();
+        initializeTable(page);
     }, []);
 
-    function initializeTable() {
-        axios.get("http://localhost:3001/pets")
+    function initializeTable(page) {
+        axios.get(`http://localhost:3001/pets?page=${page}`)
             .then((response) => {
-                setListaPets(response.data);
+                console.log(response);
+                console.log(page);
+                setListaPets(response.data.pets);
+                setNextPage(response.data.pagination.next_page_url);
+                setPrevPage(response.data.pagination.prev_page_url);
             })
             .catch((error) => {
                 console.log(error);
             });
+    }
+    function btnPrev() {
+        if (prevPage>=1) {
+            initializeTable(prevPage)
+            
+        }
+    }
+
+    function btnNext() {
+        if (nextPage>=1) {
+            initializeTable(nextPage)
+        }
     }
 
     return (
@@ -73,7 +92,7 @@ export function Pets() {
                                             <i className="bi bi-pencil-fill"></i>
                                         </Button>
                                         <Button onClick={() => openDetalhesPet(pet)}>
-                                            <i class="bi bi-info-lg"></i>
+                                            <i className="bi bi-info-lg"></i>
                                         </Button>
                                     </td>
                                 </tr>
@@ -82,6 +101,11 @@ export function Pets() {
                     </tbody>
                 </Table>
             )}
+            <div className="d-flex justify-content-between align-items-center">
+            <Button onClick={btnPrev}>prev</Button>
+            <Button onClick={btnNext}>next</Button>
+
+            </div>
             <div>
                 <ModalDetalhesPets
                     pet={Pet}
