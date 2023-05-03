@@ -73,6 +73,14 @@ export function Servicos() {
                                     <td>{servico.nome}</td>
                                     <td>{servico.preco}</td>
                                     <td className="d-flex gap-2">
+                                        <Button
+                                                variant = "primary"
+                                                as={Link}
+                                                to={`/servicos/editar/${servico.id}`}
+                                                data-toggle="tooltip"
+                                                title="Editar"
+                                            >
+                                        </Button>
                                         <Button>
                                             <i className="bi bi-pencil-fill"></i>
                                         </Button>
