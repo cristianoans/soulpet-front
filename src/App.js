@@ -8,10 +8,13 @@ import { NovoPet } from "./pages/NovoPet/NovoPet";
 import { Pets } from "./pages/Pets/Pets";
 import { EditaPet } from "./pages/EditarPet/EditarPet";
 import { NovoAgendamento } from "./pages/NovoAgendamento/NovoAgendamento";
+import { Servicos } from "./pages/Servicos/Servicos";
 import { Agendamentos } from "./pages/Agendamentos/Agendamentos";
 import { NovoServico } from "./pages/NovoServico/NovoServico";
+import { NovoProduto } from "./pages/NovoProduto/NovoProduto";
 import { EditaProduto } from "./pages/EditarProduto/EditarProduto";
 import { NovoPedido } from "./pages/NovoPedido/NovoPedido";
+import { Produtos } from "./pages/Produtos/Produtos";
 
 
 
@@ -31,7 +34,10 @@ function App() {
           <Route path="/pets/novo" element={<NovoPet />} />
           <Route path="/agendamentos" element={<Agendamentos />} />
           <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
+          <Route path="/servicos" element={<Servicos />} />
           <Route path="/servicos/novo" element={<NovoServico />} />
+          <Route path="/produtos/novo" element={<NovoProduto />} />
+          <Route path="/produtos" element={<Produtos />} />
         </Route>
       </Routes>
     </BrowserRouter>
