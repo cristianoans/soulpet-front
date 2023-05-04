@@ -6,7 +6,7 @@ export function Root() {
     return (
         <>
             <Header />
-            <main>
+            <main >
                 <Outlet />
             </main>
             <Toaster />
