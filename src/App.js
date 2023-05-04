@@ -17,6 +17,7 @@ import { EditaProduto } from "./pages/EditarProduto/EditarProduto";
 import { NovoPedido } from "./pages/NovoPedido/NovoPedido";
 import { Produtos } from "./pages/Produtos/Produtos";
 import { Pedidos } from "./pages/Pedidos/Pedidos";
+import { EditaAgendamento } from "./pages/EditaAgendamento/EditaAgendamento";
 
 
 
@@ -29,18 +30,19 @@ function App() {
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/clientes/novo" element={<NovoCliente />} />
           <Route path="/clientes/editar/:id" element={<EditaCliente />} />
+          <Route path="/produtos" element={<Produtos />} />
+          <Route path="/produtos/novo" element={<NovoProduto />} />
           <Route path="/Produto/editar/:id" element={<EditaProduto />} />
-          <Route path="/pets/editar/:id" element={<EditaPet/>} />
           <Route path="/pets" element={<Pets />} />
+          <Route path="/pets/novo" element={<NovoPet />} />
+          <Route path="/pets/editar/:id" element={<EditaPet/>} />
           <Route path="/pedidos" element={<Pedidos/>} />
           <Route path="/pedidos/novo" element={<NovoPedido/>} />
-          <Route path="/pets/novo" element={<NovoPet />} />
           <Route path="/agendamentos" element={<Agendamentos />} />
           <Route path="/agendamentos/novo" element={<NovoAgendamento />} />
+          <Route path="/agendamentos/editar/:id" element={<EditaAgendamento />} />
           <Route path="/servicos" element={<Servicos />} />
           <Route path="/servicos/novo" element={<NovoServico />} />
-          <Route path="/produtos/novo" element={<NovoProduto />} />
-          <Route path="/produtos" element={<Produtos />} />
           <Route path="/servicos/editar/:id" element={< EditaServico />} />
         </Route>
       </Routes>

@@ -42,7 +42,7 @@ export function Agendamentos() {
                                 <th>Serviço</th>
                                 <th>Data agendada</th>
                                 <th>Pet</th>
-                                <th>Status</th>
+                                <th>Realizada</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -58,12 +58,12 @@ export function Agendamentos() {
                                         <td>{agendamento.servico.nome}</td>
                                         <td>{dataFormatada}</td>
                                         <td>{agendamento.pet.nome}</td>
-                                        <td>{agendamento.realizada === false ? "pendente" : "concluído"}</td>
+                                        <td>{agendamento.realizada === false ? "Não" : "Sim"}</td>
                                         <td className="d-flex justify-content-center gap-2">
                                             <Button>
                                                 <i className="bi bi-trash-fill"></i>
                                             </Button>
-                                            <Button>
+                                            <Button as={Link} to={`/agendamentos/editar/${agendamento.id}`}>
                                                 <i className="bi bi-pencil-fill"></i>
                                             </Button>
                                         </td>
