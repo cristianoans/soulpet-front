@@ -1,14 +1,40 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Modal, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 import { format } from 'date-fns'; // para formatar a data que vem do banco de dados.
+import { toast } from "react-hot-toast";
 
 
 export function Agendamentos() {
 
     const [agendamentos, setAgendamentos] = useState(null);
+    const [show, setShow] = useState(false);
+    const [idAgendamento, setIdAgendamento] = useState(null);
+
+    const handleClose = () => {
+        setIdAgendamento(null);
+        setShow(false)
+    };
+
+    const handleShow = (id) => {
+        setIdAgendamento(id);
+        setShow(true)
+    };
+
+    function onDelete() {
+        axios.delete(`http://localhost:3001/agendamentos/${idAgendamento}`)
+            .then(response => {
+                toast.success(response.data.message, { position: "bottom-right", duration: 2000 });
+                consultarAgendamentos();
+            })
+            .catch(error => {
+                console.log(error);
+                toast.error(error.response.data.message, { position: "bottom-right", duration: 2000 });
+            });
+        handleClose();
+    }
 
     useEffect(() => {
         consultarAgendamentos();
@@ -60,7 +86,7 @@ export function Agendamentos() {
                                         <td>{agendamento.pet.nome}</td>
                                         <td>{agendamento.realizada === false ? "Não" : "Sim"}</td>
                                         <td className="d-flex justify-content-center gap-2">
-                                            <Button>
+                                            <Button onClick={() => handleShow(agendamento.id)}>
                                                 <i className="bi bi-trash-fill"></i>
                                             </Button>
                                             <Button as={Link} to={`/agendamentos/editar/${agendamento.id}`}>
@@ -73,6 +99,20 @@ export function Agendamentos() {
                         </tbody>
                     </Table>
             }
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmação</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Tem certeza que deseja excluir o agendamento?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleClose}>
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" onClick={onDelete}>
+                        Excluir
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
